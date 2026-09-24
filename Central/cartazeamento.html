@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>River Tech — Cartazeamento</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.module-page{width:min(1440px,calc(100% - 24px));margin:18px auto 30px}.module-page-head{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px 22px;background:#fff;border:1px solid #dce7f0;border-radius:18px;margin-bottom:12px}.module-page-head h1{margin:3px 0;font-size:24px}.module-page-head p{margin:3px 0;font-size:12px}.module-back{color:#166fae;text-decoration:none;font-size:12px;font-weight:800}.module-frame-wrap{background:#fff;border:1px solid #dce7f0;border-radius:18px;overflow:hidden;min-height:calc(100vh - 190px);box-shadow:0 15px 45px rgba(25,58,87,.08)}#cartFrame{display:block;width:100%;height:calc(100vh - 190px);min-height:720px;border:0;background:#f7fafc}.setup-box{padding:35px;text-align:center}.setup-box code{display:block;margin:15px auto;padding:12px;background:#f4f7fa;border-radius:10px;max-width:680px;word-break:break-all}@media(max-width:700px){.module-page{width:calc(100% - 12px)}.module-page-head{padding:15px;align-items:flex-start;flex-direction:column}#cartFrame{height:calc(100vh - 210px);min-height:680px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html"><img src="img/logo.png" alt="River Tech" class="central-logo"><span><b>RIVER TECH</b><small>CENTRAL DE SISTEMAS</small></span></a>
+  <div><span id="name" class="badge">Cliente</span> <button id="out" class="secondary">Sair</button></div>
+</header>
+<main class="module-page">
+  <section class="module-page-head">
+    <div><a class="module-back" href="index.html">← Voltar para a Central</a><h1>🏷️ Cartazeamento</h1><p>Crie, personalize e gere suas placas promocionais.</p></div>
+    <span id="moduleStatus" class="badge">Carregando...</span>
+  </section>
+  <section class="module-frame-wrap">
+    <div id="setupBox" class="setup-box" hidden></div>
+    <iframe id="cartFrame" title="River Tech Cartazeamento" allow="clipboard-write"></iframe>
+  </section>
+</main>
+<footer class="central-footer">© 2026 River Tech — Todos os direitos reservados.</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="supabase.js"></script>
+<script src="cartazeamento.js"></script>
+</body>
+</html>

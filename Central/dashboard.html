@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>River Tech — Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="module-page dashboard-page">
+  <div class="module-top">
+    <a class="module-brand" href="index.html"><img src="img/logo.png" alt="River Tech"><span><b>RIVER TECH</b><small>DASHBOARD</small></span></a>
+    <div class="module-top-actions"><span class="badge" data-client-name></span><a class="back-central" href="index.html">← Voltar para a Central</a><button class="secondary" id="out">Sair</button></div>
+  </div>
+
+  <section class="dashboard-hero">
+    <div><span class="eyebrow">VISÃO GERENCIAL</span><h1>Dashboard</h1><p>Acompanhe os principais indicadores da empresa em uma única tela.</p></div>
+    <div class="dashboard-status"><span class="status-dot"></span><span id="dashMsg">Dados de demonstração</span></div>
+  </section>
+
+  <section class="module-card dashboard-toolbar">
+    <div class="toolbar-title"><div><strong>Período e fonte</strong><small>Prepare o painel para receber os dados reais do seu sistema.</small></div></div>
+    <div class="dashboard-filters">
+      <div class="field"><label>Período</label><select id="period"><option value="7">Últimos 7 dias</option><option value="30" selected>Últimos 30 dias</option><option value="90">Últimos 90 dias</option></select></div>
+      <div class="field"><label>Modo</label><select id="mode"><option value="demo">Demonstração</option><option value="api">API JSON</option></select></div>
+      <div class="field api-field"><label>Endpoint JSON</label><input id="endpoint" placeholder="https://seu-sistema.com/api/indicadores"></div>
+      <button class="primary-btn dashboard-refresh" id="load">↻ Atualizar</button>
+    </div>
+  </section>
+
+  <section class="dashboard-kpis" id="kpis"></section>
+
+  <section class="dashboard-main-grid">
+    <div class="module-card dashboard-chart-card">
+      <div class="card-heading"><div><h2>Vendas por período</h2><small id="chartPeriod">Últimos 30 dias</small></div><span class="chart-total" id="chartTotal"></span></div>
+      <div class="chart-wrap"><canvas id="salesChart"></canvas></div>
+      <div class="chart-labels" id="chartLabels"></div>
+    </div>
+    <div class="module-card">
+      <div class="card-heading"><div><h2>Resumo</h2><small>Indicadores operacionais</small></div></div>
+      <div class="summary-list" id="details"></div>
+    </div>
+  </section>
+
+  <section class="dashboard-bottom-grid">
+    <div class="module-card"><div class="card-heading"><div><h2>Produtos em destaque</h2><small>Mais vendidos no período</small></div></div><div class="ranking" id="products"></div></div>
+    <div class="module-card"><div class="card-heading"><div><h2>Vendas por categoria</h2><small>Participação no faturamento</small></div></div><div class="categories" id="categories"></div></div>
+  </section>
+
+  <section class="module-card dashboard-integration">
+    <div><span class="eyebrow">PRÓXIMA ETAPA</span><h2>Integração com o sistema comercial</h2><p>O painel já está preparado para receber dados por API JSON. Quando definirmos a origem dos dados do cliente, fazemos o mapeamento dos indicadores sem precisar reconstruir a tela.</p></div>
+    <div class="integration-items"><span>✓ Faturamento</span><span>✓ Vendas</span><span>✓ Ticket médio</span><span>✓ Clientes</span><span>✓ Produtos</span><span>✓ Categorias</span></div>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script><script src="supabase.js"></script><script src="modulo-shell.js"></script><script src="dashboard.js"></script>
+</body></html>

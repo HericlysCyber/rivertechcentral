@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>River Tech - Cartazeamento</title>
+
+  <link
+  rel="icon"
+  type="image/png"
+  href="{{ url_for('static', filename='img/logo.png') }}"
+>
+
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+
+  :root {
+    --azul: #0066cc;
+    --azul-escuro: #003f7f;
+    --azul-claro: #eef6ff;
+    --fundo: #f3f6fa;
+    --texto: #1d2733;
+    --texto-suave: #6b7785;
+    --borda: #dfe5ec;
+    --branco: #ffffff;
+    --verde: #16a36a;
+  }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 32px 16px 50px;
+    background:
+      linear-gradient(
+        180deg,
+        #eef4fa 0%,
+        #f7f9fc 45%,
+        #f3f6fa 100%
+      );
+    color: var(--texto);
+  }
+
+  .pagina {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* =====================================================
+     CABEÇALHO
+     ===================================================== */
+
+  h2 {
+    margin: 0;
+    color: var(--azul-escuro);
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  h2::after {
+    content: "";
+    display: block;
+    width: 55px;
+    height: 4px;
+    margin: 10px auto 28px;
+    border-radius: 10px;
+    background: var(--azul);
+  }
+
+/* =====================================================
+   CABEÇALHO RIVER TECH
+   ===================================================== */
+
+.cabecalho {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.logo-river {
+  display: block;
+  width: 85px;
+  max-width: 85%;
+  height: auto;
+  margin: 0 auto 10px;
+}
+
+.cabecalho h2 {
+  margin-bottom: 0;
+}
+
+.cabecalho h2::after {
+  margin: 10px auto 10px;
+}
+
+.subtitulo {
+  margin: 0;
+  color: #7a8795;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+  /* =====================================================
+     PAINEL DE CONFIGURAÇÕES
+     ===================================================== */
+
+  .configuracoes {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow:
+      0 8px 25px rgba(31, 52, 73, 0.07),
+      0 2px 6px rgba(31, 52, 73, 0.04);
+  }
+
+  .configuracoes::before {
+    content: "CONFIGURAÇÕES DA PLACA";
+    display: block;
+    margin-bottom: 18px;
+    color: var(--azul-escuro);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+
+  label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 7px;
+    color: #344454;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  input,
+  select {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 13px;
+    border: 1px solid #d4dce5;
+    border-radius: 9px;
+    outline: none;
+    background: #fff;
+    color: #263442;
+    font-family: inherit;
+    font-size: 14px;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      background 0.2s ease;
+  }
+
+  input:hover,
+  select:hover {
+    border-color: #b8c5d3;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: var(--azul);
+    background: #fbfdff;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.10);
+  }
+
+  /* =====================================================
+     PRODUTO
+     ===================================================== */
+
+  #produtosContainer {
+    margin-top: 18px;
+  }
+
+  .produto-bloco {
+    position: relative;
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    padding: 22px;
+    margin-top: 16px;
+    box-shadow:
+      0 7px 22px rgba(31, 52, 73, 0.06),
+      0 2px 5px rgba(31, 52, 73, 0.03);
+  }
+
+  .produto-bloco h4 {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 17px;
+    color: var(--azul-escuro);
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .produto-bloco h4::before {
+    content: "";
+    width: 7px;
+    height: 22px;
+    border-radius: 5px;
+    background: var(--azul);
+  }
+
+  .linha-campos {
+    display: flex;
+    gap: 12px;
+  }
+
+  .campo {
+    flex: 1;
+  }
+
+  .campo-pequeno {
+    width: 120px;
+  }
+
+  /* =====================================================
+     OBSERVAÇÃO
+     ===================================================== */
+
+  .observacao {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--azul-claro);
+    border-left: 4px solid var(--azul);
+    border-radius: 7px;
+    color: var(--texto-suave);
+    font-size: 12px;
+  }
+
+  /* =====================================================
+     BOTÃO ADICIONAR
+     ===================================================== */
+
+  #btnAdicionar {
+    display: block;
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px 16px;
+    border: 1px dashed #7faed8;
+    border-radius: 10px;
+    background: #f8fbff;
+    color: var(--azul);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  #btnAdicionar:hover {
+    background: #edf6ff;
+    border-color: var(--azul);
+  }
+
+  #btnAdicionar:active {
+    transform: scale(0.99);
+  }
+
+  /* =====================================================
+     BOTÃO PRINCIPAL
+     ===================================================== */
+
+  #btnImprimir {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 11px;
+    background: linear-gradient(
+      135deg,
+      #0066cc,
+      #0055aa
+    );
+    color: white;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    box-shadow:
+      0 6px 14px rgba(0, 102, 204, 0.22);
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.2s ease;
+  }
+
+  #btnImprimir:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 9px 20px rgba(0, 102, 204, 0.27);
+  }
+
+  #btnImprimir:active {
+    transform: translateY(0);
+  }
+
+  /* =====================================================
+     BOTÃO BAIXAR
+     ===================================================== */
+
+  #btnBaixar {
+    display: block;
+    margin: 14px auto 0;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: #687685;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  #btnBaixar:hover {
+    color: var(--azul);
+  }
+
+  /* =====================================================
+     RESPONSIVIDADE
+     ===================================================== */
+
+  @media (max-width: 600px) {
+
+    body {
+      padding: 22px 12px 40px;
+    }
+
+    h2 {
+      font-size: 25px;
+    }
+
+    .configuracoes,
+    .produto-bloco {
+      padding: 17px;
+      border-radius: 13px;
+    }
+
+    .linha-campos {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .campo-pequeno {
+      width: 100%;
+    }
+
+    #btnImprimir {
+      padding: 14px;
+    }
+  }
+
+  @media (max-width: 400px) {
+
+    body {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    h2 {
+      font-size: 23px;
+    }
+
+    .configuracoes,
+    .produto-bloco {
+      padding: 15px;
+    }
+  }
+
+  /* =====================================================
+   RODAPÉ
+   ===================================================== */
+
+.rodape {
+  margin-top: 24px;
+  text-align: center;
+  color: #8995a3;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* =====================================================
+   GRUPOS DO PRODUTO
+   ===================================================== */
+
+.grupo-campos {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #edf0f4;
+}
+
+.grupo-campos:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.titulo-grupo {
+  margin-bottom: 10px;
+  color: #7a8795;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.observacao + .titulo-grupo {
+  margin-top: 0;
+}
+
+label span {
+  color: #9aa5b1;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.grupo-precos {
+  background: #f8fafc;
+  margin-left: -6px;
+  margin-right: -6px;
+  padding: 14px 12px;
+  border: 1px solid #e8edf2;
+  border-radius: 10px;
+}
+
+.grupo-precos .titulo-grupo {
+  color: #0066cc;
+}
+
+.grupo-precos input {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.grupo-precos .campo:last-child input {
+  border-color: #b8d4ef;
+  background: #fafdff;
+}
+
+@media (max-width: 600px) {
+
+  .grupo-campos {
+    margin-top: 16px;
+    padding-top: 14px;
+  }
+
+  .grupo-precos {
+    margin-left: -3px;
+    margin-right: -3px;
+  }
+}
+
+/* =====================================================
+   INFORMAÇÃO DO TAMANHO
+   ===================================================== */
+
+.info-tamanho {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: #f5f9fd;
+  border: 1px solid #e2ebf3;
+  color: #617181;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.info-tamanho strong {
+  color: #0066cc;
+  font-weight: 800;
+}
+
+/* =====================================================
+   DESTAQUE DOS PREÇOS
+   ===================================================== */
+
+.grupo-precos .linha-campos {
+  align-items: flex-end;
+}
+
+.grupo-precos .campo {
+  position: relative;
+}
+
+.grupo-precos .campo:first-child input {
+  color: #7d8791;
+  background: #f4f6f8;
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+.grupo-precos .campo:last-child input {
+  min-height: 50px;
+  border: 2px solid #0066cc;
+  background: #f8fbff;
+  color: #003f7f;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.grupo-precos .campo:last-child input:focus {
+  border-color: #0055aa;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12);
+}
+
+.grupo-precos .campo:last-child label {
+  color: #0066cc;
+  font-weight: 800;
+}
+
+.produtos-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 22px;
+  margin-bottom: 4px;
+}
+
+.produtos-titulo {
+  color: #344454;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.contador-produtos {
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: #eaf4ff;
+  color: #0066cc;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+
+</style>
+</head>
+
+<body>
+<div id="authGate" style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#f3f6fa;padding:24px;font-family:Arial,sans-serif;text-align:center"><div style="max-width:430px;background:#fff;border:1px solid #dfe5ec;border-radius:16px;padding:28px;box-shadow:0 12px 35px rgba(31,52,73,.10)"><div style="font-size:30px">🔐</div><h2 style="margin:8px 0;color:#003f7f">Validando acesso</h2><p id="authMessage" style="margin:0;color:#6b7785;line-height:1.5">Aguardando a autenticação da Central...</p></div></div>
+
+  <div class="pagina">
+
+  <div class="cabecalho">
+
+  <img
+    src="{{ url_for('static', filename='img/logo.png') }}"
+    alt="River Tech"
+    class="logo-river"
+  >
+
+  <h2>River Cartazeamento</h2>
+
+  <p class="subtitulo">
+    Crie suas placas promocionais de forma rápida e profissional
+  </p>
+
+</div>
+
+  <div class="configuracoes">
+
+    <label>Tamanho da placa</label>
+
+    <select id="tamanho" onchange="mudarTamanho()">
+      <option value="P">P — até 9 por folha A4</option>
+      <option value="M">M — até 2 por folha A4</option>
+      <option value="G" selected>G — 1 placa por folha A4</option>
+      <option value="GG">GG — 2 folhas coladas (horizontal)</option>
+      <option value="XG">XG — 4 folhas coladas (vertical)</option>
+    </select>
+
+
+    <label>Layout da placa</label>
+
+    <select id="layout">
+      <option value="classico">Varejo Clássico</option>
+      <option value="oferta">Super Oferta</option>
+      <option value="moderno">Moderno</option>
+      <option value="premium">Premium</option>
+      <option value="impacto">Impacto</option>
+      <option value="atacado">Atacado</option>
+      <option value="economico">Econômico</option>
+      <option value="supermercado">Supermercado</option>
+      <option value="oferta_vermelha">Oferta Vermelha</option>
+      <option value="destaque">Destaque Azul</option>
+    </select>
+    <div id="infoTamanho" class="info-tamanho"></div>
+  </div>
+
+
+  <div class="produtos-cabecalho">
+
+  <div class="produtos-titulo">
+    PRODUTOS
+  </div>
+
+  <div id="contadorProdutos" class="contador-produtos">
+    1 / 9
+  </div>
+
+</div>
+
+<div id="produtosContainer"></div>
+
+
+  <button id="btnAdicionar" onclick="adicionarProduto()">
+    + Adicionar outro produto
+  </button>
+
+
+  <button id="btnImprimir" onclick="gerarPdf(false)">
+  🎨 Gerar e Revisar Placas
+</button>
+
+
+  <button id="btnBaixar" onclick="gerarPdf(true)">
+    baixar PDF
+  </button>
+
+
+  <script>
+const RIVER_TOKEN_KEY='riverCartazeamentoAccessToken';
+const capacidade = {
+  P: 9,
+  M: 2,
+  G: 20,
+  GG: 1,
+  XG: 1
+};
+const RIVER_VALID_KEY='riverCartazeamentoAccessValidatedAt';
+let riverAccessToken=sessionStorage.getItem(RIVER_TOKEN_KEY)||'';
+let tokenJaValidado=false;
+const authGate=document.getElementById('authGate'),authMessage=document.getElementById('authMessage');
+function authMsg(m){authMessage.textContent=m;authGate.style.display='flex'}
+function authOk(){authGate.style.display='none'}
+function avisarCentral(){if(window.parent!==window)window.parent.postMessage({type:'RIVER_CARTAZEAMENTO_READY'},'*')}
+async function validarServidor(t){const r=await fetch('/api/sessao',{headers:{Authorization:'Bearer '+t}});const j=await r.json().catch(()=>({}));if(!r.ok)throw Error(j.erro||'Sessão inválida.');return j}
+
+let resolverToken=null;
+let rejeitarToken=null;
+const tokenRecebido=new Promise((resolve,reject)=>{resolverToken=resolve;rejeitarToken=reject});
+
+window.addEventListener('message',async e=>{
+  if(e.data?.type!=='RIVER_CARTAZEAMENTO_AUTH')return;
+  if(e.source!==window.parent)return;
+  const expectedOrigin = document.referrer ? new URL(document.referrer).origin : '';
+  if(expectedOrigin && e.origin!==expectedOrigin)return;
+  const incomingToken = e.data.accessToken || e.data.token;
+  if(!incomingToken)return;
+
+  // O pai envia o token várias vezes durante o handshake. Não devemos
+  // reabrir a tela de validação a cada mensagem, pois isso causa o
+  // efeito de piscar observado na entrada do Cartazeamento.
+  const mesmoToken = incomingToken === riverAccessToken;
+  const validadoEm = Number(sessionStorage.getItem(RIVER_VALID_KEY)||0);
+  const validacaoRecente = validadoEm && (Date.now()-validadoEm) < 30000;
+  if(mesmoToken && (tokenJaValidado || validacaoRecente)){
+    tokenJaValidado=true;
+    authOk();
+    if(resolverToken){resolverToken(riverAccessToken);resolverToken=null;rejeitarToken=null;}
+    return;
+  }
+
+  try{
+    authMsg('Validando seu acesso...');
+    riverAccessToken=incomingToken;
+    sessionStorage.setItem(RIVER_TOKEN_KEY,riverAccessToken);
+    await validarServidor(riverAccessToken);
+    tokenJaValidado=true;
+    sessionStorage.setItem(RIVER_VALID_KEY,String(Date.now()));
+    authOk();
+    if(resolverToken){resolverToken(riverAccessToken);resolverToken=null;rejeitarToken=null;}
+  }catch(err){
+    sessionStorage.removeItem(RIVER_TOKEN_KEY);
+    riverAccessToken='';
+    authMsg(err.message||'Não foi possível validar seu acesso.');
+    if(rejeitarToken){rejeitarToken(err);resolverToken=null;rejeitarToken=null;}
+  }
+});
+
+async function aguardarTokenDaCentral(timeoutMs=15000){
+  if(riverAccessToken)return riverAccessToken;
+  authMsg('Conectando à Central River Tech...');
+  avisarCentral();
+  return await Promise.race([
+    tokenRecebido,
+    new Promise((_,reject)=>setTimeout(()=>reject(Error('Não foi possível receber a autenticação da Central. Abra o Cartazeamento pela Central River Tech e tente novamente.')),timeoutMs))
+  ]);
+}
+
+async function iniciarAuth(){
+  try{
+    if(!riverAccessToken){
+      avisarCentral();
+      riverAccessToken=await aguardarTokenDaCentral();
+    }
+    const validadoEm=Number(sessionStorage.getItem(RIVER_VALID_KEY)||0);
+    const recente=validadoEm && (Date.now()-validadoEm)<30000;
+    if(!recente){
+      authMsg('Validando seu acesso...');
+      await validarServidor(riverAccessToken);
+      sessionStorage.setItem(RIVER_VALID_KEY,String(Date.now()));
+    }
+    authOk();
+    return true;
+  }catch(e){
+    sessionStorage.removeItem(RIVER_TOKEN_KEY);
+    sessionStorage.removeItem(RIVER_VALID_KEY);
+    riverAccessToken='';
+    authMsg(e.message||'Sessão expirada. Volte para a Central e entre novamente.');
+    return false;
+  }
+}
+
+function atualizarInfoTamanho() {
+
+  const tamanho =
+    document.getElementById('tamanho').value;
+
+  const info =
+    document.getElementById('infoTamanho');
+
+  const mensagens = {
+
+    P:
+      '<strong>P</strong> — até 9 placas em uma folha A4.',
+
+    M:
+      '<strong>M</strong> — até 2 placas em uma folha A4.',
+
+    G:
+      '<strong>G</strong> — 1 placa por folha A4; você pode adicionar vários produtos e cada um será gerado em sua própria página.',
+
+    GG:
+      '<strong>GG</strong> — 1 placa formada por 2 folhas A4.',
+
+    XG:
+      '<strong>XG</strong> — 1 placa formada por 4 folhas A4.'
+
+  };
+
+  info.innerHTML =
+    mensagens[tamanho] || '';
+
+}
+
+    function criarBlocoProduto(numero) {
+
+  const div = document.createElement('div');
+
+  div.className = 'produto-bloco';
+
+  div.innerHTML = `
+
+  <h4>Produto ${numero}</h4>
+
+  <div class="grupo-campos">
+
+    <div class="titulo-grupo">
+      INFORMAÇÕES DO PRODUTO
+    </div>
+
+    <label>Nome do produto</label>
+
+    <input
+      type="text"
+      class="produto"
+      placeholder="Ex: Arroz Tipo 1"
+    >
+
+    <label>Observação <span>(opcional)</span></label>
+
+    <input
+      type="text"
+      class="observacao"
+      placeholder="Ex: 5kg, 2 Litros, Fardo c/ 12"
+    >
+
+  </div>
+
+
+  <div class="grupo-campos">
+
+    <div class="titulo-grupo">
+      OFERTA
+    </div>
+
+    <div class="linha-campos">
+
+      <div class="campo">
+
+        <label>Chamada promocional</label>
+
+        <select class="chamada">
+
+          <option value="OFERTA">OFERTA</option>
+
+          <option value="SUPER OFERTA">
+            SUPER OFERTA
+          </option>
+
+          <option value="PROMOÇÃO">
+            PROMOÇÃO
+          </option>
+
+          <option value="IMPERDÍVEL">
+            IMPERDÍVEL
+          </option>
+
+          <option value="PREÇO ESPECIAL">
+            PREÇO ESPECIAL
+          </option>
+
+          <option value="OFERTA DO DIA">
+            OFERTA DO DIA
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="campo">
+
+        <label>Unidade de venda</label>
+
+        <select class="unidade">
+
+          <option value="UN">UN</option>
+
+          <option value="KG">KG</option>
+
+          <option value="500G">500G</option>
+
+          <option value="1KG">1KG</option>
+
+          <option value="L">L</option>
+
+          <option value="1L">1L</option>
+
+          <option value="ML">ML</option>
+
+          <option value="PCT">PCT</option>
+
+          <option value="CX">CX</option>
+
+          <option value="FD">FD</option>
+
+          <option value="PAR">PAR</option>
+
+          <option value="DZ">DZ</option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="grupo-campos grupo-precos">
+
+    <div class="titulo-grupo">
+      PREÇOS
+    </div>
+
+    <div class="linha-campos">
+
+      <div class="campo">
+
+        <label>Preço anterior</label>
+
+        <input
+          type="text"
+          class="de"
+          placeholder="Ex: 49,90"
+          inputmode="decimal"
+        >
+
+      </div>
+
+
+      <div class="campo">
+
+        <label>Preço promocional</label>
+
+        <input
+          type="text"
+          class="oferta"
+          placeholder="Ex: 29,90"
+          inputmode="decimal"
+        >
+
+      </div>
+
+    </div>
+
+  </div>
+
+`;
+
+  return div;
+}
+
+    function adicionarProduto() {
+
+      const tamanho =
+        document.getElementById('tamanho').value;
+
+      const max = capacidade[tamanho];
+
+      if (totalProdutos >= max) {
+        return;
+      }
+
+      totalProdutos++;
+
+      document
+        .getElementById('produtosContainer')
+        .appendChild(
+          criarBlocoProduto(totalProdutos)
+        );
+
+      atualizarBotaoAdicionar();
+      atualizarContadorProdutos();
+    }
+
+
+    function atualizarBotaoAdicionar() {
+
+      const tamanho =
+        document.getElementById('tamanho').value;
+
+      const max = capacidade[tamanho];
+
+      document.getElementById('btnAdicionar').style.display =
+        totalProdutos >= max
+          ? 'none'
+          : 'block';
+    }
+
+
+    function mudarTamanho() {
+
+      document.getElementById(
+        'produtosContainer'
+      ).innerHTML = '';
+
+      totalProdutos = 0;
+
+      adicionarProduto();
+
+      atualizarInfoTamanho();
+    }
+
+
+   async function gerarPdf(baixar) {
+  if(!riverAccessToken){alert('Abra o Cartazeamento pela Central River Tech.');return;}
+
+  const blocos =
+    document.querySelectorAll('.produto-bloco');
+
+  const produtos = [];
+
+  blocos.forEach(bloco => {
+
+    const nome =
+      bloco.querySelector('.produto')
+        .value
+        .trim();
+
+    if (nome) {
+
+      produtos.push({
+
+        // ==================================================
+        // PRODUTO
+        // ==================================================
+
+        nome: nome,
+
+        // ==================================================
+        // OBSERVAÇÃO
+        // ==================================================
+
+        observacao:
+          bloco.querySelector('.observacao')
+            .value
+            .trim(),
+
+        // ==================================================
+        // PREÇO ANTERIOR
+        // ==================================================
+
+        de:
+          bloco.querySelector('.de')
+            .value
+            .trim(),
+
+        // ==================================================
+        // PREÇO PROMOCIONAL
+        // ==================================================
+
+        por:
+          bloco.querySelector('.oferta')
+            .value
+            .trim(),
+
+        // ==================================================
+        // UNIDADE
+        // ==================================================
+
+        unidade:
+          bloco.querySelector('.unidade')
+            .value
+            .trim(),
+
+        // ==================================================
+        // CHAMADA PROMOCIONAL
+        // ==================================================
+
+        chamada:
+          bloco.querySelector('.chamada')
+            .value
+            .trim()
+
+      });
+
+    }
+
+  });
+
+
+  if (produtos.length === 0) {
+
+    alert(
+      'Preencha ao menos um produto.'
+    );
+
+    return;
+  }
+
+
+  const dados = {
+
+    produtos: produtos,
+
+    tamanho:
+      document.getElementById('tamanho').value,
+
+    layout:
+      document.getElementById('layout').value
+
+  };
+
+
+  /*
+   * ========================================================
+   * SALVAR DADOS TEMPORARIAMENTE
+   * ========================================================
+   */
+
+  sessionStorage.setItem(
+    'riverCartazeamentoDados',
+    JSON.stringify(dados)
+  );
+
+
+  /*
+   * ========================================================
+   * IR PARA O EDITOR
+   * ========================================================
+   */
+
+  window.location.href = '/editor';
+
+}
+
+// inicia a página somente depois da autenticação da Central
+(async()=>{if(await iniciarAuth()){adicionarProduto();atualizarInfoTamanho();atualizarContadorProdutos();}})();
+
+</script>
+
+<div class="rodape">
+  River Cartazeamento
+</div>
+
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>River Cartazeamento - Revisão</title>
+<style>
+*{box-sizing:border-box}
+:root{--azul:#0066cc;--azul-escuro:#003f7f;--texto:#1d2733;--suave:#6b7785;--borda:#dfe5ec}
+body{margin:0;padding:24px 16px 40px;background:linear-gradient(180deg,#eef4fa 0%,#f7f9fc 45%,#f3f6fa 100%);font-family:Arial,Helvetica,sans-serif;color:var(--texto)}
+.pagina{width:100%;max-width:1150px;margin:auto}
+.cabecalho{text-align:center;margin-bottom:20px}
+.logo{width:70px;display:block;margin:0 auto 8px}
+h1{margin:0;color:var(--azul-escuro);font-size:27px}
+.subtitulo{margin:7px 0 0;color:var(--suave);font-size:13px}
+.revisao-painel{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:20px}
+.preview-container{min-height:650px;padding:24px;display:flex;align-items:center;justify-content:center;background:#e9eef4;border:1px solid var(--borda);border-radius:16px;box-shadow:0 8px 25px rgba(31,52,73,.07)}
+#previewPlaca{width:100%;min-height:600px;display:flex;align-items:center;justify-content:center;position:relative}
+#imagemPlaca{display:block;max-width:100%;max-height:760px;width:auto;height:auto;object-fit:contain;background:#fff;border:1px solid #d8dee6;box-shadow:0 12px 30px rgba(31,52,73,.15)}
+.carregando{width:100%;min-height:560px;display:flex;align-items:center;justify-content:center;background:#fff;color:var(--suave);font-size:14px;border:1px solid var(--borda);border-radius:8px}
+.painel-controles{background:#fff;border:1px solid var(--borda);border-radius:16px;padding:20px;box-shadow:0 8px 25px rgba(31,52,73,.07);height:max-content}
+.titulo-painel{margin-bottom:18px;color:var(--azul-escuro);font-size:12px;font-weight:800;letter-spacing:1px}
+.informacao{padding:12px;margin-bottom:10px;border-radius:9px;background:#f5f9fd;border:1px solid #e2ebf3}
+.informacao span{display:block;margin-bottom:4px;color:#8995a3;font-size:10px;font-weight:700;text-transform:uppercase}
+.informacao strong{color:#344454;font-size:14px}
+.status-ok{padding:12px;margin:16px 0;border-radius:10px;background:#eef9f3;border:1px solid #ccebd9;color:#24744a;font-size:12px;line-height:1.5}
+.dica{margin-top:15px;padding:12px;border-radius:9px;background:#fafafa;border:1px solid #e5e7eb;color:#687585;font-size:11px;line-height:1.5}
+.acoes{margin-top:24px;display:flex;flex-direction:column;gap:10px}
+button{width:100%;padding:13px 16px;border-radius:10px;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer}
+#btnVoltar{border:1px solid #d4dce5;background:white;color:#526170}
+#btnImprimir{border:none;background:#16a36a;color:white}
+#btnFinalizar{border:none;background:linear-gradient(135deg,#0066cc,#0055aa);color:white;box-shadow:0 6px 14px rgba(0,102,204,.22)}
+@media(max-width:800px){
+  .revisao-painel{grid-template-columns:1fr}
+  .preview-container{min-height:500px}
+  #previewPlaca{min-height:440px}
+  #imagemPlaca{max-height:600px}
+}
+@media(max-width:500px){
+  body{padding:18px 10px 30px}
+  .preview-container{padding:15px;min-height:430px}
+  #previewPlaca{min-height:380px}
+  #imagemPlaca{max-width:100%;max-height:500px}
+  h1{font-size:23px}
+}
+</style>
+</head>
+<body>
+<div class="pagina">
+  <div class="cabecalho">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="River Tech">
+    <h1>Revisar placa</h1>
+    <p class="subtitulo">Visualização da placa antes de baixar ou imprimir</p>
+  </div>
+
+  <div class="revisao-painel">
+    <div class="preview-container">
+      <div id="previewPlaca">
+        <div class="carregando">Preparando prévia da placa...</div>
+      </div>
+    </div>
+
+    <div class="painel-controles">
+      <div class="titulo-painel">INFORMAÇÕES DA PLACA</div>
+
+      <div class="informacao">
+        <span>Tamanho</span>
+        <strong id="infoTamanho">—</strong>
+      </div>
+
+      <div class="informacao">
+        <span>Modelo</span>
+        <strong id="infoLayout">—</strong>
+      </div>
+
+      <div class="informacao">
+        <span>Produtos</span>
+        <strong id="infoProdutos">—</strong>
+      </div>
+
+      <div class="status-ok">
+        <strong>✓ Revisão pronta</strong><br>
+        Esta tela é somente para visualizar. A composição exibida é gerada pelo mesmo motor utilizado no PDF final.
+      </div>
+
+      <div class="dica">
+        Nenhum elemento pode ser arrastado ou redimensionado nesta etapa. Isso mantém a posição dos elementos consistente entre a revisão, o PDF e a impressão.
+      </div>
+
+      <div class="acoes">
+        <button id="btnVoltar" type="button" onclick="voltarFormulario()">← Voltar e editar dados</button>
+        <button id="btnFinalizar" type="button" onclick="finalizarPlaca()">✓ Baixar PDF Final</button>
+        <button id="btnImprimir" type="button" onclick="imprimirPlaca()">🖨️ Abrir para impressão</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const RIVER_TOKEN_KEY='riverCartazeamentoAccessToken';
+const RIVER_VALID_KEY='riverCartazeamentoAccessValidatedAt';
+let riverAccessToken=sessionStorage.getItem(RIVER_TOKEN_KEY)||'';
+let resolverToken=null;
+const tokenRecebido=new Promise(resolve=>{resolverToken=resolve});
+
+function avisarCentral(){
+  if(window.parent!==window){
+    window.parent.postMessage({type:'RIVER_CARTAZEAMENTO_READY'},'*');
+  }
+}
+
+window.addEventListener('message',async e=>{
+  if(e.data?.type!=='RIVER_CARTAZEAMENTO_AUTH')return;
+  if(e.source!==window.parent)return;
+  const expectedOrigin = document.referrer ? new URL(document.referrer).origin : '';
+  if(expectedOrigin && e.origin!==expectedOrigin)return;
+  const incomingToken = e.data.accessToken || e.data.token;
+  if(!incomingToken)return;
+  riverAccessToken=incomingToken;
+  sessionStorage.setItem(RIVER_TOKEN_KEY,riverAccessToken);
+  if(resolverToken){resolverToken(riverAccessToken);resolverToken=null;}
+});
+
+function authHeaders(){
+  return {
+    'Content-Type':'application/json',
+    'Authorization':'Bearer '+riverAccessToken
+  };
+}
+
+async function validarEditor(){
+  avisarCentral();
+  if(!riverAccessToken){
+    try{
+      riverAccessToken=await Promise.race([
+        tokenRecebido,
+        new Promise((_,reject)=>setTimeout(()=>reject(Error('Sessão não recebida da Central.')),15000))
+      ]);
+    }catch(_){
+      alert('Sessão não encontrada. Volte para a Central e abra o Cartazeamento novamente.');
+      return false;
+    }
+  }
+
+  const validadoEm=Number(sessionStorage.getItem(RIVER_VALID_KEY)||0);
+  if(validadoEm && (Date.now()-validadoEm)<30000) return true;
+
+  const r=await fetch('/api/sessao',{headers:{Authorization:'Bearer '+riverAccessToken}});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok){
+    sessionStorage.removeItem(RIVER_TOKEN_KEY);
+    sessionStorage.removeItem(RIVER_VALID_KEY);
+    alert(j.erro||'Sessão expirada.');
+    return false;
+  }
+  sessionStorage.setItem(RIVER_VALID_KEY,String(Date.now()));
+  return true;
+}
+
+const dadosSalvos=sessionStorage.getItem('riverCartazeamentoDados');
+let dados=null;
+
+if(dadosSalvos){
+  try{
+    dados=JSON.parse(dadosSalvos);
+  }catch(e){
+    console.error('Erro ao ler os dados da placa:',e);
+  }
+}
+
+function nomeLayout(layout){
+  const nomes={
+    classico:'Varejo Clássico',
+    oferta:'Super Oferta',
+    moderno:'Moderno',
+    premium:'Premium',
+    impacto:'Impacto',
+    atacado:'Atacado',
+    economico:'Econômico',
+    supermercado:'Supermercado',
+    oferta_vermelha:'Oferta Vermelha',
+    destaque:'Destaque Azul'
+  };
+  return nomes[layout]||layout||'—';
+}
+
+function textoTamanho(tamanho){
+  const nomes={
+    P:'P — até 9 por folha A4',
+    M:'M — até 2 por folha A4',
+    G:'G — 1 placa por folha A4 (várias páginas)',
+    GG:'GG — 2 folhas A4',
+    XG:'XG — 4 folhas A4'
+  };
+  return nomes[tamanho]||tamanho||'—';
+}
+
+async function gerarPreview(){
+  const area=document.getElementById('previewPlaca');
+
+  if(!dados){
+    area.innerHTML='<div class="carregando">Nenhuma placa foi carregada.</div>';
+    return false;
+  }
+
+  try{
+    /*
+     * IMPORTANTE:
+     * A revisão envia somente os dados do formulário.
+     * Não envia posições, tamanhos ou edições do antigo editor.
+     * Assim a imagem de revisão é gerada pelo mesmo motor do PDF.
+     */
+    const dadosRevisao={
+      produtos:Array.isArray(dados.produtos)?dados.produtos:[],
+      tamanho:dados.tamanho||'G',
+      layout:dados.layout||'classico'
+    };
+
+    const r=await fetch('/gerar-preview',{
+      method:'POST',
+      headers:authHeaders(),
+      body:JSON.stringify(dadosRevisao)
+    });
+
+    if(!r.ok){
+      let mensagem='Não foi possível gerar a prévia.';
+      try{
+        const j=await r.json();
+        if(j.erro) mensagem=j.erro;
+      }catch(_){}
+      throw Error(mensagem);
+    }
+
+    const blob=await r.blob();
+    const url=URL.createObjectURL(blob);
+
+    area.innerHTML='';
+    const img=document.createElement('img');
+    img.id='imagemPlaca';
+    img.alt='Prévia da placa';
+    img.src=url;
+    area.appendChild(img);
+
+    return true;
+  }catch(e){
+    console.error('Erro ao gerar prévia:',e);
+    area.innerHTML='<div class="carregando">Não foi possível gerar a prévia da placa.</div>';
+    return false;
+  }
+}
+
+function voltarFormulario(){
+  window.location.href='/';
+}
+
+async function obterPdf(urlEndpoint){
+  if(!(await validarEditor())) return null;
+
+  const dadosFinais={
+    produtos:Array.isArray(dados?.produtos)?dados.produtos:[],
+    tamanho:dados?.tamanho||'G',
+    layout:dados?.layout||'classico'
+  };
+
+  const r=await fetch(urlEndpoint,{
+    method:'POST',
+    headers:authHeaders(),
+    body:JSON.stringify(dadosFinais)
+  });
+
+  if(!r.ok){
+    let mensagem='Não foi possível gerar o PDF.';
+    try{
+      const j=await r.json();
+      if(j.erro) mensagem=j.erro;
+    }catch(_){}
+    throw Error(mensagem);
+  }
+
+  return await r.blob();
+}
+
+async function finalizarPlaca(){
+  try{
+    const blob=await obterPdf('/gerar-pdf');
+    if(!blob)return;
+
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download='placas_final.pdf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
+  }catch(err){
+    console.error(err);
+    alert(err.message||'Não foi possível gerar o PDF final.');
+  }
+}
+
+async function imprimirPlaca(){
+  /*
+   * Abre a janela imediatamente no clique para evitar bloqueio
+   * de pop-up. O PDF é gerado depois e carregado nessa janela.
+   */
+  const janela=window.open('about:blank','_blank');
+
+  if(!janela){
+    alert('O navegador bloqueou a janela de impressão. Permita pop-ups para o Cartazeamento e tente novamente.');
+    return;
+  }
+
+  janela.document.write(
+    '<!doctype html><html lang="pt-BR"><head><title>Preparando impressão...</title></head><body style="font-family:Arial;text-align:center;padding:50px">Preparando o PDF para impressão...</body></html>'
+  );
+  janela.document.close();
+
+  try{
+    const blob=await obterPdf('/imprimir-pdf');
+    if(!blob){
+      janela.close();
+      return;
+    }
+
+    const url=URL.createObjectURL(blob);
+    janela.location.href=url;
+
+    setTimeout(()=>URL.revokeObjectURL(url),120000);
+  }catch(err){
+    console.error(err);
+    janela.close();
+    alert(err.message||'Não foi possível preparar a impressão.');
+  }
+}
+
+async function iniciar(){
+  avisarCentral();
+
+  if(!dados){
+    document.getElementById('previewPlaca').innerHTML='<div class="carregando">Nenhuma placa foi carregada.</div>';
+    return;
+  }
+
+  document.getElementById('infoTamanho').textContent=textoTamanho(dados.tamanho);
+  document.getElementById('infoLayout').textContent=nomeLayout(dados.layout);
+  document.getElementById('infoProdutos').textContent=String((dados.produtos||[]).length);
+
+  await gerarPreview();
+}
+
+(async()=>{
+  if(await validarEditor()){
+    await iniciar();
+  }
+})();
+</script>
+</body>
+</html>
