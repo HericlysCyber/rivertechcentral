@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>River Tech — Chat Bot</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="module-page chatbot-page">
+  <div class="module-top">
+    <a class="module-brand" href="index.html"><img src="img/logo.png" alt="River Tech"><span><b>RIVER TECH</b><small>CHAT BOT</small></span></a>
+    <div class="module-top-actions"><span class="badge" data-client-name></span><a class="back-central" href="index.html">← Voltar para a Central</a><button class="secondary" id="out">Sair</button></div>
+  </div>
+
+  <section class="hero chatbot-hero">
+    <div><span class="eyebrow">AUTOMAÇÃO DE ATENDIMENTO</span><h1>Chat Bot</h1><p>Monte o primeiro atendimento do cliente, organize respostas rápidas e prepare o fluxo para conexão com WhatsApp, Instagram ou Web Chat.</p></div>
+    <div class="bot-state"><span id="stateDot" class="state-dot"></span><b id="stateText">Configuração inativa</b></div>
+  </section>
+
+  <div class="chatbot-layout">
+    <section class="module-card chatbot-config">
+      <div class="card-heading"><div><h2>Configuração do atendimento</h2><small>Estrutura pronta para receber o provedor de mensagens na próxima integração.</small></div></div>
+      <div class="form-grid">
+        <div class="field"><label>Canal principal</label><select id="canal"><option>WhatsApp</option><option>Instagram</option><option>Web Chat</option><option>Outro</option></select></div>
+        <div class="field"><label>Nome do atendimento</label><input id="botname" value="River Assistente" maxlength="50"></div>
+        <div class="field"><label>Mensagem inicial</label><textarea id="welcome" maxlength="500">Olá! 👋 Seja bem-vindo à nossa empresa. Como podemos ajudar?</textarea></div>
+        <div class="field"><label>Mensagem fora do horário</label><textarea id="offline" maxlength="500">No momento estamos fora do horário. Deixe sua mensagem e retornaremos.</textarea></div>
+        <div class="field"><label>Resposta para assunto não reconhecido</label><textarea id="fallback" maxlength="500">Não consegui identificar sua solicitação. Escolha uma opção do menu ou peça para falar com um atendente.</textarea></div>
+        <div class="field"><label>Mensagem para atendente</label><textarea id="human" maxlength="500">Certo! Vou encaminhar você para um atendente.</textarea></div>
+      </div>
+
+      <div class="section-label">Menu inicial</div>
+      <div id="menuRows" class="bot-menu-editor"></div>
+      <button class="ghost-btn" id="addOption">+ Adicionar opção</button>
+
+      <div class="section-label">Palavras-chave</div>
+      <div class="field"><label>Termos que ativam o atendimento (separados por vírgula)</label><input id="keywords" value="olá, oi, atendimento, ajuda, preço, promoção"></div>
+
+      <div class="section-label">Horário</div>
+      <div class="schedule-grid">
+        <label class="check-line"><input type="checkbox" id="scheduleEnabled"> Usar mensagem fora do horário</label>
+        <div class="field"><label>Início</label><input type="time" id="startTime" value="08:00"></div>
+        <div class="field"><label>Fim</label><input type="time" id="endTime" value="18:00"></div>
+      </div>
+
+      <div class="actions"><button class="primary-btn" id="save">Salvar configuração</button><button class="ghost-btn" id="activate">Ativar / desativar</button><button class="ghost-btn" id="test">Testar atendimento</button></div>
+      <div id="msg" class="notice">A configuração é salva na conta do cliente no Supabase. A conexão com o provedor de mensagens será feita separadamente.</div>
+    </section>
+
+    <aside class="module-card chatbot-preview-card">
+      <div class="card-heading"><div><h2>Prévia</h2><small>Veja como o primeiro atendimento ficará.</small></div></div>
+      <div class="phone-preview">
+        <div class="phone-head"><span class="phone-avatar">R</span><div><strong id="prevName">River Assistente</strong><small id="prevChannel">WhatsApp</small></div><span class="online-dot"></span></div>
+        <div class="chat-screen" id="chatScreen"><div class="chat-bubble bot" id="prevWelcome"></div><div id="prevOptions"></div></div>
+        <div class="chat-input"><span>Digite uma mensagem...</span><b>➤</b></div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="module-card whatsapp-connections-card">
+    <div class="card-heading"><div><span class="eyebrow">WHATSAPP</span><h2>Números desta conta</h2><small>Vincule até 2 números. A conexão com a Meta será feita em uma etapa segura no backend.</small></div><button class="primary-btn" id="addWhatsApp" type="button">+ Adicionar número</button></div>
+    <div id="whatsappConnections" class="whatsapp-connections"></div>
+    <div class="notice">Nesta etapa o número fica apenas vinculado ao cliente. Não coloque token da Meta aqui. Quando fizermos a conexão real, as credenciais ficarão protegidas no backend/Edge Function.</div>
+  </section>
+
+  <section class="module-card chatbot-roadmap">
+    <div><span class="eyebrow">PRÓXIMA INTEGRAÇÃO</span><h2>Conexão com o canal</h2><p>Esta versão organiza o fluxo do bot sem fingir uma conexão com WhatsApp ou outro provedor. Quando definirmos o serviço de mensagens, o mesmo fluxo poderá ser conectado ao atendimento real.</p></div>
+    <div class="integration-checks"><span>✓ Fluxo inicial</span><span>✓ Menu e respostas</span><span>✓ Horário</span><span>✓ Encaminhamento humano</span></div>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script><script src="supabase.js"></script><script src="modulo-shell.js"></script><script src="chatbot.js"></script>
+</body></html>

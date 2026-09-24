@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>River Tech — Central Administrativa</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="central-admin-page">
+<header class="central-topbar">
+  <a class="central-brand" href="admin.html" aria-label="River Tech Central">
+    <img src="img/logo.png" alt="River Tech" class="central-logo">
+    <span><b>RIVER TECH</b><small>CENTRAL DE SISTEMAS</small></span>
+  </a>
+  <div class="central-top-actions">
+    <span class="admin-pill">ADMINISTRADOR</span>
+    <button id="out" class="secondary top-logout">Sair</button>
+  </div>
+</header>
+
+<main class="central-admin-shell">
+  <section class="central-admin-hero">
+    <div>
+      <span class="eyebrow">CONTROLE CENTRAL</span>
+      <h1>Administração</h1>
+      <p>Gerencie clientes, acessos e módulos da plataforma River Tech em um só lugar.</p>
+    </div>
+    <button id="new" class="primary-action">+ Novo cliente</button>
+  </section>
+
+  <section class="central-admin-workspace">
+    <aside class="client-sidebar">
+      <div class="sidebar-head">
+        <div><h2>Clientes</h2><span id="clientCount">0 clientes</span></div>
+        <button id="refresh" class="icon-button" title="Atualizar lista">↻</button>
+      </div>
+      <div id="clients" class="client-list"><div class="loading-state">Carregando clientes...</div></div>
+    </aside>
+
+    <section id="details" class="client-details">
+      <div class="empty-selection">
+        <div class="empty-icon">👥</div>
+        <h2>Selecione um cliente</h2>
+        <p>Escolha um cliente ao lado para visualizar e controlar os módulos liberados.</p>
+        <button id="emptyNew" class="primary-action">+ Cadastrar primeiro cliente</button>
+      </div>
+    </section>
+  </section>
+</main>
+<footer class="central-footer admin-footer">© 2026 River Tech — Todos os direitos reservados.</footer>
+
+<!-- NOVO CLIENTE -->
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="newClientTitle">
+  <div class="modal-card wide-modal">
+    <div class="modal-head"><div><span class="eyebrow">NOVO ACESSO</span><h2 id="newClientTitle">Cadastrar cliente</h2></div><button id="close" class="modal-close" aria-label="Fechar">×</button></div>
+    <p class="modal-intro">Crie o acesso do cliente e escolha os módulos que estarão disponíveis para ele.</p>
+    <form id="cf">
+      <div class="form-grid">
+        <div><label for="cn">Nome do cliente</label><input id="cn" required placeholder="Ex.: Mercado Central"></div>
+        <div><label for="cc">Código</label><input id="cc" placeholder="Ex.: CLI-001"></div>
+        <div><label for="ce">E-mail de acesso</label><input id="ce" type="email" required placeholder="cliente@empresa.com"></div>
+        <div><label for="cp">Senha inicial</label><input id="cp" type="password" minlength="6" required placeholder="Mínimo 6 caracteres"></div>
+      </div>
+      <div class="module-picker"><div class="picker-title"><strong>Módulos liberados</strong><span>Rádio Indoor vem selecionada por padrão.</span></div><div id="mods" class="module-check-grid"></div></div>
+      <div id="cm" class="form-message"></div>
+      <div class="modal-actions"><button type="button" id="cancelNew" class="secondary">Cancelar</button><button type="submit" class="primary-action">Cadastrar cliente</button></div>
+    </form>
+  </div>
+</div>
+
+<!-- REDEFINIR SENHA -->
+<div id="passwordModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="passwordTitle">
+  <div class="modal-card small-modal">
+    <div class="modal-head"><div><span class="eyebrow">SEGURANÇA</span><h2 id="passwordTitle">Redefinir senha</h2></div><button id="closePassword" class="modal-close" aria-label="Fechar">×</button></div>
+    <p id="passwordClientName" class="modal-intro"></p>
+    <form id="passwordForm">
+      <label for="newPassword">Nova senha</label><input id="newPassword" type="password" minlength="6" required placeholder="Mínimo 6 caracteres">
+      <div id="passwordMessage" class="form-message"></div>
+      <div class="modal-actions"><button type="button" id="cancelPassword" class="secondary">Cancelar</button><button type="submit" class="primary-action">Salvar nova senha</button></div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="supabase.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

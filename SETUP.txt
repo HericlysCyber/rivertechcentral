@@ -1,0 +1,36 @@
+RIVER TECH CENTRAL V8 — CARTAZEAMENTO
+
+1) Supabase
+- Execute primeiro as migrações que sua Central já utiliza (V6 + V7, se ainda não executou).
+- Depois execute MIGRACAO_V8_CARTAZEAMENTO.sql.
+- A V8 cria o módulo interno Cartazeamento e a tabela de layouts personalizados.
+
+2) Central
+- Configure config.js:
+  cartazeamentoBackendUrl: "https://SEU-SERVIDOR-DO-CARTAZEAMENTO"
+- Rádio Indoor continua externa e intocada.
+- Cartazeamento passa a abrir dentro de cartazeamento.html.
+
+3) Servidor do Cartazeamento
+- Entre na pasta Cartazeamento.
+- Crie o ambiente Python e instale requirements.txt.
+- Copie .env.example para .env e preencha SUPABASE_KEY.
+- Configure CARTAZEAMENTO_ALLOWED_ORIGINS com o domínio publicado da Central.
+- Execute o Flask no servidor escolhido.
+
+4) Segurança
+- Não publique .env.
+- Não coloque service_role no frontend.
+- O Cartazeamento exige um JWT válido da Central para gerar PDF e acessar layouts.
+- O backend valida o acesso pelo RPC verificar_acesso_cliente.
+
+5) Layouts personalizados
+- O cliente pode criar um layout no editor.
+- O layout é salvo no Supabase e fica associado somente ao cliente.
+- O cliente pode reutilizar, atualizar e excluir seus próprios layouts.
+
+6) Publicação
+A Central pode continuar sendo publicada como site estático (por exemplo, GitHub Pages). O Cartazeamento precisa de um servidor Python/Flask separado porque a geração de PDF usa ReportLab/PyMuPDF.
+
+
+V8.1: use MIGRACAO_V8_CARTAZEAMENTO.sql corrigida. O DROP CONSTRAINT precisa estar dentro de ALTER TABLE.

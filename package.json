@@ -1,0 +1,12 @@
+{
+  "name": "river-tech-central-service",
+  "version": "13.0.0",
+  "private": true,
+  "description": "Serviço Node integrado da River Tech Central + River Music",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}

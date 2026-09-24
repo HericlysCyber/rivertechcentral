@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>River Music | River Tech</title>
+
+    <meta
+        name="description"
+        content="River Music — central inteligente de descoberta e licenciamento musical da River Tech."
+    >
+
+    <link rel="stylesheet" href="rivermusic.css">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="topo">
+        <div class="central-voltar"><a href="index.html">← Voltar para a Central</a></div>
+
+        <div class="marca">
+            <img src="img/Logo.png" alt="River Tech">
+
+            <div class="nome-produto">
+                <span>RIVER</span>
+                <strong>MUSIC</strong>
+            </div>
+        </div>
+
+        <nav class="menu">
+            <a href="#inicio">Início</a>
+            <a href="#pesquisa">Pesquisar</a>
+            <a href="#biblioteca">Biblioteca</a>
+        </nav>
+
+    </header>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main id="inicio">
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-conteudo">
+
+                <span class="etiqueta">
+                    RIVER TECH
+                </span>
+
+                <h1>
+                    Encontre a música<br>
+                    <span>certa para sua rádio.</span>
+                </h1>
+
+                <p>
+                    Descubra músicas em fontes autorizadas,
+                    consulte as condições de uso e organize
+                    sua biblioteca musical em um só lugar.
+                </p>
+
+                <!-- PESQUISA -->
+                <div class="caixa-pesquisa" id="pesquisa">
+
+                    <div class="icone-pesquisa">
+                        🔎
+                    </div>
+
+                    <input
+                        type="text"
+                        id="campoBusca"
+                        placeholder="Ex.: Procure músicas de forró liberadas para uso comercial..."
+                        autocomplete="off"
+                    >
+
+                    <button id="btnPesquisar">
+                        PESQUISAR
+                    </button>
+
+                </div>
+
+                <div class="exemplos">
+                    <span>Experimente:</span>
+
+                    <button class="exemplo-busca">
+                        Forró para uso comercial
+                    </button>
+
+                    <button class="exemplo-busca">
+                        Música eletrônica livre
+                    </button>
+
+                    <button class="exemplo-busca">
+                        Música brasileira
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FILTROS -->
+        <section class="filtros-area">
+
+            <div class="secao-titulo">
+                <span>FILTROS</span>
+                <h2>Refine sua pesquisa</h2>
+            </div>
+
+            <div class="filtros">
+
+                <select id="filtroGenero">
+                    <option value="">Gênero musical</option>
+                    <option>Forró</option>
+                    <option>Sertanejo</option>
+                    <option>Eletrônica</option>
+                    <option>Rock</option>
+                    <option>Pop</option>
+                    <option>MPB</option>
+                    <option>Hip Hop</option>
+                    <option>Jazz</option>
+                    <option>Instrumental</option>
+                </select>
+
+                <select id="filtroAno">
+                    <option value="">Ano</option>
+                    <option>2026</option>
+                    <option>2025</option>
+                    <option>2024</option>
+                    <option>2023</option>
+                    <option>2022</option>
+                    <option>Antes de 2022</option>
+                </select>
+
+                <select id="filtroIdioma">
+                    <option value="">Idioma</option>
+                    <option>Português</option>
+                    <option>Inglês</option>
+                    <option>Espanhol</option>
+                    <option>Instrumental</option>
+                </select>
+
+                <select id="filtroLicenca">
+                    <option value="">Tipo de licença</option>
+                    <option>Uso comercial permitido</option>
+                    <option>Creative Commons</option>
+                    <option>Domínio público</option>
+                    <option>Royalty-free</option>
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULTADOS -->
+        <section class="resultados" id="biblioteca">
+
+            <div class="secao-titulo resultados-titulo">
+                <div>
+                    <span>RESULTADOS</span>
+                    <h2>Músicas encontradas</h2>
+                </div>
+
+                <div id="contadorResultados">
+                    0 músicas
+                </div>
+            </div>
+
+
+            <!-- Mensagem inicial -->
+            <div class="estado-inicial" id="estadoInicial">
+
+                <div class="estado-icone">
+                    🎵
+                </div>
+
+                <h3>Comece sua pesquisa</h3>
+
+                <p>
+                    Digite um comando acima para encontrar
+                    músicas e consultar suas condições de uso.
+                </p>
+
+            </div>
+
+
+            <!-- Resultados serão inseridos pelo JavaScript -->
+            <div
+                class="lista-musicas"
+                id="listaMusicas"
+            ></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+    <footer>
+        <a class="back-central-footer" href="index.html">← Voltar para a Central</a>
+
+        <div>
+            <strong>RIVER MUSIC</strong>
+            <span>por River Tech</span>
+        </div>
+
+        <p>
+            Descoberta musical inteligente e responsável.
+        </p>
+
+        <span class="copyright">
+            © 2026 River Tech
+        </span>
+
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase.js"></script>
+    <script src="modulo-shell.js"></script>
+    <script src="rivermusic-auth.js"></script>
+
+</body>
+</html> 
